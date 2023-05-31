@@ -1,5 +1,5 @@
 'use client';
-
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,7 +9,7 @@ import {
   fetchProducts,
   removeProduct,
 } from '@/redux/reducers/products';
-import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -18,10 +18,8 @@ export default function Home() {
   const error = useSelector((state) => state.products.error);
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchProducts());
-    }
-  }, [status, dispatch]);
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -29,8 +27,8 @@ export default function Home() {
     }
   }, [error]);
   //   console.log('error', error);
-  //   console.log('data', products);
-  //   console.log('status', status);
+  console.log('datacc', products);
+  console.log('status', status);
 
   return (
     <main className="flex min-h-screen text-black flex-col bg-white items-center justify-between p-24">
@@ -53,23 +51,28 @@ export default function Home() {
         </button>
         {products?.map((item, i) => (
           <div key={i + 1} className="flex my-1.5 items-center">
-            <img
-              src={item.thumbnail}
-              alt={item.title}
-              className="h-16 w-16 mr-2 shadow"
-            />
-            <span>
-              {item.id}. {item.title} - [{item.brand}] Rs. {item.price}/-
-            </span>{' '}
-            <button
-              className="ml-4"
-              onClick={() => {
-                dispatch(deleteProduct(item.id));
-                // dispatch(removeProduct({ id: i }));
-              }}
+            <Link
+              href={`/product/${item.id}`}
+              className="flex my-1.5 items-center"
             >
-              Delete
-            </button>
+              <img
+                src={item.thumbnail}
+                alt={item.title}
+                className="h-16 w-16 mr-2 shadow"
+              />
+              <span>
+                {item.id}. {item.title} - [{item.brand}] Rs. {item.price}/-
+              </span>{' '}
+              <button
+                className="ml-4"
+                onClick={() => {
+                  dispatch(deleteProduct(item.id));
+                  // dispatch(removeProduct({ id: i }));
+                }}
+              >
+                Delete
+              </button>
+            </Link>
           </div>
         ))}
       </div>

@@ -2,6 +2,7 @@ import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '@/utils/api';
 const initialState = {
   data: [],
+  singleProduct: {},
   status: 'idle',
   error: undefined,
 };
@@ -10,6 +11,13 @@ export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
     const response = await axios.get('/products');
+    return response.data;
+  },
+);
+export const singleProduct = createAsyncThunk(
+  'products/singleProduct',
+  async (id) => {
+    const response = await axios.get(`products/${id}`);
     return response.data;
   },
 );
@@ -64,14 +72,27 @@ export const products = createSlice({
       .addCase(deleteProduct.pending, (state, action) => {
         state.status = 'loading';
       })
+      .addCase(singleProduct.pending, (state, action) => {
+        state.status = 'loading';
+      })
       .addCase(deleteProduct.fulfilled, (state, { payload }) => {
         // console.log('payload', payload);
         state.status = 'succeeded';
+
         const result = state.data.filter((item, i) => item.id !== payload);
         // console.log('result', result);
         state.data = result;
       })
+      .addCase(singleProduct.fulfilled, (state, { payload }) => {
+        // console.log('payload', payload);
+        state.status = 'succeeded';
+        state.singleProduct = payload;
+      })
       .addCase(deleteProduct.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(singleProduct.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
