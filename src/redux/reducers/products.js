@@ -60,7 +60,7 @@ export const products = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = state.data.concat(action.payload.products);
+        state.data = action.payload.products;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';

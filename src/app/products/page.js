@@ -19,7 +19,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -63,16 +63,17 @@ export default function Home() {
               <span>
                 {item.id}. {item.title} - [{item.brand}] Rs. {item.price}/-
               </span>{' '}
-              <button
-                className="ml-4"
-                onClick={() => {
-                  dispatch(deleteProduct(item.id));
-                  // dispatch(removeProduct({ id: i }));
-                }}
-              >
-                Delete
-              </button>
             </Link>
+
+            <button
+              className="ml-4"
+              onClick={() => {
+                dispatch(deleteProduct(item.id));
+                // dispatch(removeProduct({ id: i }));
+              }}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>

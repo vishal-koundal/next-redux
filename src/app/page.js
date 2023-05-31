@@ -14,6 +14,7 @@ import {
   removeProduct,
   resetProducts,
 } from '@/redux/reducers/products';
+import Link from 'next/link';
 export default function Home() {
   const count = useSelector((state) => state.counter.value);
   const tasks = useSelector((state) => state.tasks.data);
@@ -49,66 +50,27 @@ export default function Home() {
       </div>
 
       <div className="mt-10">
-        <button
-          className="p-1 bg-white text-black"
-          onClick={() =>
-            dispatch(addTask({ text: `Todo item ${tasks?.length + 1}` }))
-          }
-        >
-          Add todo
-        </button>
+        <Link href="/tasks" className="p-1.5 bg-white text-black">
+          Tasks
+        </Link>
         <button
           className="p-1 ml-4 bg-white text-black"
           onClick={() => dispatch(resetTasks())}
         >
-          reset
+          Reset Tasks {tasks.length}
         </button>
-
-        {tasks?.map((item, i) => (
-          <div key={item} className="flex text-white">
-            <span>{item}</span>{' '}
-            <button
-              className="ml-4"
-              onClick={() => dispatch(removeTask({ id: i }))}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
       </div>
       <div className="mt-10">
-        <button
-          className="p-1 bg-white text-black"
-          onClick={() =>
-            dispatch(
-              addProduct({
-                name: `Product name ${products?.length + 1}`,
-                price: 20,
-              }),
-            )
-          }
-        >
-          Add Product
-        </button>
+        <Link href="/products" className="p-1.5 bg-white text-black">
+          Go to Products
+        </Link>
+
         <button
           className="p-1 ml-4 bg-white text-black"
           onClick={() => dispatch(resetProducts())}
         >
-          reset
+          Reset Products {products.length}
         </button>
-        {products?.map((item, i) => (
-          <div key={i + 1} className="flex text-white">
-            <span>
-              {item.name} - Rs. {item.price}/-
-            </span>{' '}
-            <button
-              className="ml-4"
-              onClick={() => dispatch(removeProduct({ id: i }))}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
       </div>
     </main>
   );
