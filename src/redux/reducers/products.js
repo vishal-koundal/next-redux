@@ -25,7 +25,14 @@ export const singleProduct = createAsyncThunk(
 export const addNewProduct = createAsyncThunk(
   'products/addNewProduct',
   async (initialProduct) => {
-    const response = await axios.post('/products/1', initialProduct);
+    const response = await axios.post('/products/add', {
+      thumbnail:
+        'https://rukminim1.flixcart.com/image/832/832/ktketu80/mobile/8/z/w/iphone-13-mlph3hn-a-apple-original-imag6vzzhrxgazsg.jpeg?q=70',
+      title: 'I phone 13',
+      price: Math.floor(Math.random() * (2100 - 1500 + 1)) + 1500,
+      brand: 'Apple',
+      category: 'smartphones',
+    });
     return response.data;
   },
 );
@@ -99,5 +106,5 @@ export const products = createSlice({
   },
 });
 
-export const { addProduct, removeProduct, resetProducts } = products.actions;
+export const { removeProduct, resetProducts } = products.actions;
 export default products.reducer;

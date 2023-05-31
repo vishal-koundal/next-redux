@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
+  addNewProduct,
   addProduct,
   deleteProduct,
   fetchProducts,
@@ -38,14 +39,7 @@ export default function Home() {
       <div className="mt-10 ">
         <button
           className="p-1 bg-black text-white"
-          onClick={() =>
-            dispatch(
-              addProduct({
-                name: `Product name ${products?.length + 1}`,
-                price: 20,
-              }),
-            )
-          }
+          onClick={() => dispatch(addNewProduct())}
         >
           Add Product
         </button>
@@ -58,7 +52,7 @@ export default function Home() {
               <img
                 src={item.thumbnail}
                 alt={item.title}
-                className="h-16 w-16 mr-2 shadow"
+                className="h-20 w-20 mr-2 shadow object-cover"
               />
               <span>
                 {item.id}. {item.title} - [{item.brand}] Rs. {item.price}/-
