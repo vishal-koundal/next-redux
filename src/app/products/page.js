@@ -27,8 +27,8 @@ export default function Home() {
     }
   }, [error]);
   //   console.log('error', error);
-  console.log('datacc', products);
-  console.log('status', status);
+  // console.log('datacc', products);
+  // console.log('status', status);
 
   return (
     <main className="flex min-h-screen text-black flex-col bg-white items-center justify-between p-24">
