@@ -19,7 +19,7 @@ export default function Home() {
   const tasks = useSelector((state) => state.tasks.data);
   const products = useSelector((state) => state.products.data);
 
-  console.log('products', products);
+  // console.log('products', products);
   const dispatch = useDispatch();
   // const counter = useCallback((type) => dispatch({ type: type }), [dispatch]);
 
